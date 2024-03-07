@@ -14,9 +14,9 @@ public class WidthTwoLengthTwo extends Room {
 
     @Override
     public void generateRoom() {
-        Chunk c0_0 = new Chunk(ChunkType.ROOM,EdgeState.POTENTIAL,EdgeState.INNER,EdgeState.POTENTIAL,EdgeState.INNER); //Top Left
+        Chunk c0_0 = new Chunk(ChunkType.ROOM,EdgeState.POTENTIAL,EdgeState.INNER,EdgeState.INNER,EdgeState.POTENTIAL); //Top Left
         super.setRoomOrigin(c0_0);
-        Chunk c0_1 = new Chunk(ChunkType.ROOM,EdgeState.POTENTIAL,EdgeState.INNER,EdgeState.INNER,EdgeState.POTENTIAL); //Top Right
+        Chunk c0_1 = new Chunk(ChunkType.ROOM,EdgeState.POTENTIAL,EdgeState.INNER,EdgeState.POTENTIAL,EdgeState.INNER); //Top Right
         Chunk c1_0 = new Chunk(ChunkType.ROOM,EdgeState.INNER,EdgeState.POTENTIAL,EdgeState.INNER,EdgeState.POTENTIAL); //Bottom Left
         Chunk c1_1 = new Chunk(ChunkType.ROOM,EdgeState.INNER,EdgeState.POTENTIAL,EdgeState.POTENTIAL,EdgeState.INNER); //Bottom Right
 

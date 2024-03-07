@@ -15,7 +15,7 @@ public class WidthOneLengthOne extends Room {
 
     @Override
     public void generateRoom() {
-        Chunk c0_0 = new Chunk(ChunkType.ROOM,EdgeState.POTENTIAL,EdgeState.INNER,EdgeState.POTENTIAL,EdgeState.INNER); //Top Left
+        Chunk c0_0 = new Chunk(ChunkType.ROOM,EdgeState.POTENTIAL,EdgeState.POTENTIAL,EdgeState.POTENTIAL,EdgeState.POTENTIAL); //Top Left
         super.setRoomOrigin(c0_0);
 
         this.chunkList.get(0).set(0,c0_0);

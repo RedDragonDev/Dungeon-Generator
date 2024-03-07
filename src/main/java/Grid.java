@@ -177,4 +177,21 @@ public class Grid {
 
         return cords;
     }
+
+
+
+    //==================================================================================================
+
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getLength() {
+        return length;
+    }
+
+    public ArrayList<ArrayList<Chunk>> getGridMap() {
+        return gridMap;
+    }
 }
