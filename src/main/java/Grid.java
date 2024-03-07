@@ -19,6 +19,8 @@ public class Grid {
 
     public Random random;
 
+    private boolean debug = true;
+
     public Grid(int x, int y){
         this.width = x;
         this.length = y;
@@ -51,7 +53,7 @@ public class Grid {
                 switch(gridMap.get(i).get(j).getChunkType().id){
                     //ToFix: Fix the switches to actually be the enums
                     case "Empty":
-                        type="E";
+                        type=" ";
                         break;
                     case "Room":
                         type="R";
@@ -94,16 +96,17 @@ public class Grid {
         int xMin = 0;
         int yMin = 0;
 
-        int xMax = (gridMap.get(0).size()-1);
-        int yMax = (gridMap.size()-1);
+        int xMax = (gridMap.get(0).size()-1)-(room.getWidth()-2);
+        int yMax = (gridMap.size()-1)-(room.getLength()-2);
 
         ArrayList<Cord> validCords = checkAllSlots(xMin,yMin,xMax,yMax, room, room.getChunkList());
 
         Cord cord = validCords.get(random.nextInt(validCords.size()));
 
+
         System.out.println("x="+cord.x+" y="+cord.y);
 
-        //Place the Room
+        //Place the Room chunk by chunk
         Chunk chunk;
         for (int ry = 0; ry < room.getLength(); ry++) {
             for (int rx = 0; rx < room.getWidth(); rx++) {
@@ -113,10 +116,14 @@ public class Grid {
         }
 
 
-        /* Debug
-        for(Cord cord : validCords){
-            System.out.println("x="+cord.x+" y="+cord.y);
+
+        /*
+        if(debug) {
+            for (Cord c : validCords) {
+                System.out.println("x=" + c.x + " y=" + c.y);
+            }
         }
+
          */
 
     }
@@ -146,14 +153,15 @@ public class Grid {
                         if(selectedChunk.getChunkType().equals(ChunkType.EMPTY) || gridChunk.getChunkType().equals(ChunkType.EMPTY)){
                             //System.out.println("one is empty");
                         }else{
-                            //System.out.println("Doesn't fit at x="+x+" y="+y);
+                            if(debug) {
+                                System.out.println("For room \"" + room.getName() + "\" Doesn't fit at x=" + x + " y=" + y);
+                            }
                             noFit = true;
                             break;
                         }
 
                     }
                     if(noFit){
-                        noFit = false;
                         break;
                     }
                 }
@@ -161,6 +169,8 @@ public class Grid {
                 //If it fits add it to the possible
                 if(!noFit){
                     cords.add(new Cord(x,y));
+                }else{
+                    noFit = false;
                 }
             }
         }

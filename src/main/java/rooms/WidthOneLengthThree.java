@@ -8,7 +8,7 @@ import main.java.rooms.base.Room;
 public class WidthOneLengthThree extends Room {
 
     public WidthOneLengthThree() {
-        super("Two By Two",1, 3);
+        super("1x3",1, 3);
         generateRoom();
     }
 

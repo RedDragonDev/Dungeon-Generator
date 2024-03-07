@@ -7,7 +7,7 @@ import main.java.rooms.base.Room;
 public class WidthTwoLengthTwo extends Room {
 
     public WidthTwoLengthTwo() {
-        super("Two By Two",2, 2);
+        super("2x2",2, 2);
         generateRoom();
     }
 
