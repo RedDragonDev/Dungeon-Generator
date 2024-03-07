@@ -51,7 +51,7 @@ public class Grid {
                 switch(gridMap.get(i).get(j).getChunkType().id){
                     //ToFix: Fix the switches to actually be the enums
                     case "Empty":
-                        type="E";
+                        type=" ";
                         break;
                     case "Room":
                         type="R";
@@ -94,8 +94,10 @@ public class Grid {
         int xMin = 0;
         int yMin = 0;
 
-        int xMax = (gridMap.get(0).size()-1);
-        int yMax = (gridMap.size()-1);
+
+        //There is a bug here
+        int xMax = (gridMap.get(0).size()-1)-(room.getWidth()-2);
+        int yMax = (gridMap.size()-1)-(room.getLength()-2);
 
         ArrayList<Cord> validCords = checkAllSlots(xMin,yMin,xMax,yMax, room, room.getChunkList());
 
@@ -113,10 +115,11 @@ public class Grid {
         }
 
 
-        /* Debug
-        for(Cord cord : validCords){
-            System.out.println("x="+cord.x+" y="+cord.y);
+        /*
+        for(Cord c : validCords){
+            System.out.println("x="+c.x+" y="+c.y);
         }
+
          */
 
     }
@@ -153,6 +156,7 @@ public class Grid {
 
                     }
                     if(noFit){
+                        //System.out.println("No fit for "+room.getName()+"\n at x="+x+" y="+y);
                         noFit = false;
                         break;
                     }
