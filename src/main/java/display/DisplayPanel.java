@@ -1,4 +1,4 @@
-package main.java.Display;
+package main.java.display;
 
 import main.java.Enums.*;
 import main.java.Grid;
@@ -26,13 +26,16 @@ public class DisplayPanel extends JPanel {
 
     //Chunk Colors
     Color emptyColor = new Color(0,0,0);
-    Color startColor = new Color(24, 241, 12);
+    Color startColor = new Color(6, 114, 82);
     Color roomColor = new Color(157, 8, 231);
 
     //Edge Colors
     Color nullColor = new Color(0,0,0);
     Color potentialColor = new Color(255, 106,0);
     Color innerColor = new Color(255, 255, 255);
+    Color wallColor = new Color(255,0,0);
+    Color doorColor = new Color(24,241,12);
+    Color entranceColor = new Color(255, 216, 45);
 
 
     public DisplayPanel(Grid grid,int scale,int lineScale){
@@ -116,6 +119,15 @@ public class DisplayPanel extends JPanel {
                 break;
             case INNER:
                 c = this.roomColor;
+                break;
+            case WALL:
+                c = this.wallColor;
+                break;
+            case DOOR:
+                c = this.doorColor;
+                break;
+            case ENTRANCE:
+                c = this.entranceColor;
                 break;
             case NULL:
             default:

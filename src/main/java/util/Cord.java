@@ -1,4 +1,4 @@
-package main.java.Util;
+package main.java.util;
 
 public class Cord {
     public final int x;

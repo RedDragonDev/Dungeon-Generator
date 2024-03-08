@@ -1,25 +1,24 @@
 package main.java;
 
-import main.java.Util.Cord;
+import main.java.util.Cord;
 import main.java.rooms.StartRoom;
 import main.java.rooms.base.Chunk;
 import main.java.rooms.base.Room;
 import main.java.Enums.*;
 
-import java.security.KeyPair;
 import java.util.ArrayList;
 import java.util.Random;
 
 public class Grid {
     private ArrayList<ArrayList<Chunk>> gridMap;
-    private ArrayList<Room> rooms;
+    private ArrayList<Room> roomsList;
 
     private int width;
     private int length;
 
     public Random random;
 
-    private boolean debug = true;
+    private boolean debug = false;
 
     public Grid(int x, int y){
         this.width = x;
@@ -38,7 +37,7 @@ public class Grid {
         }
 
         //Create empty ArrayList for storing the rooms
-        rooms = new ArrayList<>();
+        roomsList = new ArrayList<>();
 
         this.random = new Random();
 
@@ -80,7 +79,7 @@ public class Grid {
 
     public void placeStart(int x, int y, Direction direction){
         Room start = new StartRoom(direction);
-        rooms.add(start);
+        roomsList.add(start);
         start.setRoomID(0);
         placeStartRoomChunks(x,y,start);
     }
@@ -89,94 +88,7 @@ public class Grid {
         gridMap.get(y).set(x,room.getChunkList().get(0).get(0));
     }
 
-    public void randomlyPlaceRoom(Room room){
-        room.setRoomID(rooms.size());
-        rooms.add(room);
 
-        int xMin = 0;
-        int yMin = 0;
-
-        int xMax = (gridMap.get(0).size()-1)-(room.getWidth()-2);
-        int yMax = (gridMap.size()-1)-(room.getLength()-2);
-
-        ArrayList<Cord> validCords = checkAllSlots(xMin,yMin,xMax,yMax, room, room.getChunkList());
-
-        Cord cord = validCords.get(random.nextInt(validCords.size()));
-
-
-        System.out.println("x="+cord.x+" y="+cord.y);
-
-        //Place the Room chunk by chunk
-        Chunk chunk;
-        for (int ry = 0; ry < room.getLength(); ry++) {
-            for (int rx = 0; rx < room.getWidth(); rx++) {
-                chunk = room.getChunkList().get(ry).get(rx);
-                gridMap.get(ry+cord.y).set(rx+cord.x, chunk);
-            }
-        }
-
-
-
-        /*
-        if(debug) {
-            for (Cord c : validCords) {
-                System.out.println("x=" + c.x + " y=" + c.y);
-            }
-        }
-
-         */
-
-    }
-
-    public ArrayList<Cord> checkAllSlots(int xMin, int yMin, int xMax, int yMax, Room room, ArrayList<ArrayList<Chunk>> chunkList){
-        ArrayList<Cord> cords = new ArrayList<>();
-
-        int xCord = 0;
-        int yCord = 0;
-
-
-        boolean noFit = false;
-        Chunk selectedChunk;
-        Chunk gridChunk;
-
-        //For Each Location on the Grid
-        for (int y = yMin; y < yMax; y++) {
-            for (int x = xMin; x < xMax; x++) {
-                //For Each Chunk in the Room
-                for (int yc = 0; yc < chunkList.size(); yc++) {
-                    for (int xc = 0; xc < chunkList.get(yc).size(); xc++) {
-                        //Check Currently selected chunk with where it will go
-                        selectedChunk = chunkList.get(yc).get(xc);
-                        gridChunk = gridMap.get(y+yc).get(x+xc);
-
-                        //If Both neither are empty, then the room doesn't fit at these cords.
-                        if(selectedChunk.getChunkType().equals(ChunkType.EMPTY) || gridChunk.getChunkType().equals(ChunkType.EMPTY)){
-                            //System.out.println("one is empty");
-                        }else{
-                            if(debug) {
-                                System.out.println("For room \"" + room.getName() + "\" Doesn't fit at x=" + x + " y=" + y);
-                            }
-                            noFit = true;
-                            break;
-                        }
-
-                    }
-                    if(noFit){
-                        break;
-                    }
-                }
-
-                //If it fits add it to the possible
-                if(!noFit){
-                    cords.add(new Cord(x,y));
-                }else{
-                    noFit = false;
-                }
-            }
-        }
-
-        return cords;
-    }
 
 
 
@@ -189,6 +101,10 @@ public class Grid {
 
     public int getLength() {
         return length;
+    }
+
+    public ArrayList<Room> getRoomsList() {
+        return roomsList;
     }
 
     public ArrayList<ArrayList<Chunk>> getGridMap() {

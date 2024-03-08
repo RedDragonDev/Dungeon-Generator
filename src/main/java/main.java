@@ -1,20 +1,55 @@
 package main.java;
 
-import main.java.Display.DisplayPanel;
+import main.java.display.DisplayPanel;
+import main.java.generators.GridGenerators;
+import main.java.generators.EdgeGenerators;
 import main.java.rooms.*;
 import main.java.rooms.base.Room;
+import main.java.Enums.*;
 
 import javax.swing.*;
-import java.util.Random;
 
 public class main {
 
 
 
     public static void main(String[] args) {
-
         Grid grid = baseTest();
+        EdgeGenerators.disableEdges(grid,ChunkType.ROOM);
+        EdgeGenerators.connectAllAdjacentRooms(grid);
+        EdgeGenerators.giveEachRoomDoors(grid,1);
+        baseDisplay(grid);
 
+        /*
+        Grid grid = baseTest();
+        PathingGenerators.disableEdges(grid, ChunkType.ROOM);
+
+         */
+    }
+
+    public static Grid baseTest(){
+        Grid grid = new Grid(15,15);
+        grid.placeStart(7,14, Enums.Direction.SOUTH);
+
+        Room room1 = new WidthOneLengthOne();
+        Room room2 = new WidthTwoLengthTwo();
+        Room room3 = new WidthThreeLengthThree();
+        Room room4 = new WidthOneLengthTwo();
+        Room room5 = new WidthOneLengthThree();
+        Room room6 = new LRoom();
+
+        GridGenerators.randomlyPlaceRoom(grid,room1);
+        GridGenerators.randomlyPlaceRoom(grid,room2);
+        GridGenerators.randomlyPlaceRoom(grid,room3);
+        GridGenerators.randomlyPlaceRoom(grid,room4);
+        GridGenerators.randomlyPlaceRoom(grid,room5);
+        GridGenerators.randomlyPlaceRoom(grid,room6);
+
+        //grid.printGrid();
+        return grid;
+    }
+
+    public static void baseDisplay(Grid grid){
         int scale = 25;
         int lineScale = 4;
         JFrame window = new JFrame("Please Work");
@@ -28,29 +63,6 @@ public class main {
         window.setUndecorated(true);
         window.setVisible(true);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-
-
-    }
-
-    public static Grid baseTest(){
-        Grid grid = new Grid(15,15);
-        grid.placeStart(7,14, Enums.Direction.SOUTH);
-
-        Room room1 = new WidthOneLengthOne();
-        Room room2 = new WidthTwoLengthTwo();
-        Room room3 = new WidthThreeLengthThree();
-        Room room4 = new WidthOneLengthTwo();
-        Room room5 = new WidthOneLengthThree();
-
-        grid.randomlyPlaceRoom(room1);
-        grid.randomlyPlaceRoom(room2);
-        grid.randomlyPlaceRoom(room3);
-        grid.randomlyPlaceRoom(room4);
-        grid.randomlyPlaceRoom(room5);
-
-        grid.printGrid();
-        return grid;
     }
 
     public static void loopTest(){
@@ -63,9 +75,9 @@ public class main {
             Room room3 = new WidthOneLengthThree();
 
 
-            grid.randomlyPlaceRoom(room1);
-            grid.randomlyPlaceRoom(room2);
-            grid.randomlyPlaceRoom(room3);
+            GridGenerators.randomlyPlaceRoom(grid,room1);
+            GridGenerators.randomlyPlaceRoom(grid,room2);
+            GridGenerators.randomlyPlaceRoom(grid,room3);
 
             grid.printGrid();
             try {
@@ -76,15 +88,72 @@ public class main {
         }
     }
 
-    public static void twoByTwoTest(){
-        Grid grid = new Grid(11,11);
-        grid.placeStart(5,10, Enums.Direction.SOUTH);
-
-        Room room2 = new WidthTwoLengthTwo();
+    public static void loopDisplayTest(int num,int delay){
+        for (int i = 0; i < num; i++) {
 
 
-        grid.randomlyPlaceRoom(room2);
+            //DUNGEON GENERATION======================================================================
+            Grid grid = baseTest();
+            EdgeGenerators.disableEdges(grid, Enums.ChunkType.ROOM);
 
-        grid.printGrid();
+
+            //DISPLAY==================================================================================
+            int scale = 25;
+            int lineScale = 4;
+            JFrame window = new JFrame("Please Work");
+            DisplayPanel panel = new DisplayPanel(grid, scale, lineScale);
+
+            window.getContentPane().add(panel);
+
+
+            window.setSize(scale * (grid.getWidth()), scale * (grid.getLength()));
+
+            window.setUndecorated(true);
+            window.setVisible(true);
+            window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            try {
+                Thread.sleep(delay);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            window.dispose();
+        }
+
+    }
+
+    public static Grid stressTest(){
+        Grid grid = new Grid(15,15);
+        grid.placeStart(7,14, Enums.Direction.SOUTH);
+
+
+        Room room1 = new LRoom();
+        Room room2 = new LRoom();
+        Room room3 = new LRoom();
+        Room room4 = new LRoom();
+        Room room5 = new LRoom();
+        Room room6 = new LRoom();
+        Room room7 = new WidthOneLengthOne();
+        Room room8 = new WidthOneLengthOne();
+        Room room9 = new WidthOneLengthOne();
+        Room room10 = new WidthOneLengthOne();
+        Room room11 = new WidthOneLengthOne();
+        Room room12 = new WidthOneLengthOne();
+
+        GridGenerators.randomlyPlaceRoom(grid,room1);
+        GridGenerators.randomlyPlaceRoom(grid,room2);
+        GridGenerators.randomlyPlaceRoom(grid,room3);
+        GridGenerators.randomlyPlaceRoom(grid,room4);
+        GridGenerators.randomlyPlaceRoom(grid,room5);
+        GridGenerators.randomlyPlaceRoom(grid,room6);
+        GridGenerators.randomlyPlaceRoom(grid,room7);
+        GridGenerators.randomlyPlaceRoom(grid,room8);
+        GridGenerators.randomlyPlaceRoom(grid,room9);
+        GridGenerators.randomlyPlaceRoom(grid,room10);
+        GridGenerators.randomlyPlaceRoom(grid,room11);
+        GridGenerators.randomlyPlaceRoom(grid,room12);
+
+        GridGenerators.randomlyPlaceRoom(grid,room2);
+
+        return grid;
     }
 }
