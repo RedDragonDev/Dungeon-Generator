@@ -89,7 +89,7 @@ public class EdgeGenerators {
 
     }
 
-
+    //todo implement doornum
     public static void giveEachRoomDoors(Grid grid, int doorNum){
         ArrayList<Room> roomList = grid.getRoomsList();
         ArrayList<StoredEdge> storedEdges;
@@ -97,6 +97,12 @@ public class EdgeGenerators {
 
 
         for(Room room : roomList){
+
+            //todoLow get a better way of identifying the start room
+            if(room.getName().equals("Start Room")){
+                continue;
+            }
+
             storedEdges = new ArrayList<>();
             ArrayList<ArrayList<Chunk>> chunkList = room.getChunkList();
 
@@ -128,5 +134,86 @@ public class EdgeGenerators {
 
     }
 
+    public static void placeStartTempHall(Grid grid) {
+        ArrayList<ArrayList<Chunk>> gridMap = grid.getGridMap();
+        Chunk currentChunk;
+        Chunk checkChunk;
+        Chunk newTempChunk;
+        for (int y = 0; y < gridMap.size(); y++) {
+            for (int x = 0; x < gridMap.get(y).size(); x++) {
+                currentChunk = gridMap.get(y).get(x);
+                //Check if selected chunk is not an empty
+                if (!currentChunk.getChunkType().equals(ChunkType.EMPTY)) {
+
+
+                    //North
+                    if (y != 0 && currentChunk.getNorth().equals(EdgeState.DOOR)) {
+                        checkChunk = gridMap.get(y - 1).get(x);
+                        if (checkChunk.getChunkType().equals(ChunkType.EMPTY)) {
+                            newTempChunk = new Chunk(ChunkType.TEMPHALL, EdgeState.POTENTIAL, EdgeState.DOOR, EdgeState.POTENTIAL, EdgeState.POTENTIAL);
+                            gridMap.get(y - 1).set(x, newTempChunk);
+                        }
+                    }
+
+                    //South
+                    if (y != gridMap.size() - 1 && currentChunk.getSouth().equals(EdgeState.DOOR)) {
+                        checkChunk = gridMap.get(y + 1).get(x);
+                        if (checkChunk.getChunkType().equals(ChunkType.EMPTY)) {
+                            newTempChunk = new Chunk(ChunkType.TEMPHALL, EdgeState.DOOR, EdgeState.POTENTIAL, EdgeState.POTENTIAL, EdgeState.POTENTIAL);
+                            gridMap.get(y + 1).set(x, newTempChunk);
+                        }
+                    }
+
+                    //East
+                    if (x != gridMap.size() - 1 && currentChunk.getEast().equals(EdgeState.DOOR)) {
+                        checkChunk = gridMap.get(y).get(x + 1);
+                        if (checkChunk.getChunkType().equals(ChunkType.EMPTY)) {
+                            newTempChunk = new Chunk(ChunkType.TEMPHALL, EdgeState.POTENTIAL, EdgeState.POTENTIAL, EdgeState.POTENTIAL, EdgeState.DOOR);
+                            gridMap.get(y).set(x + 1, newTempChunk);
+                        }
+                    }
+
+                    //West
+                    if (x != 0 && currentChunk.getWest().equals(EdgeState.DOOR)) {
+                        checkChunk = gridMap.get(y).get(x - 1);
+                        if (checkChunk.getChunkType().equals(ChunkType.EMPTY)) {
+                            newTempChunk = new Chunk(ChunkType.TEMPHALL, EdgeState.POTENTIAL, EdgeState.POTENTIAL, EdgeState.DOOR, EdgeState.POTENTIAL);
+                            gridMap.get(y).set(x - 1, newTempChunk);
+                        }
+                    }
+                }
+            }
+        }
+    }
 
 }
+
+
+        /*
+        for (Room room : roomList) {
+            ArrayList<ArrayList<Chunk>> chunkList = room.getChunkList();
+
+            for (int y = 0; y < chunkList.size(); y++) {
+                for (int x = 0; x < chunkList.get(y).size(); x++) {
+                    currentChunk = chunkList.get(y).get(x);
+
+
+                    trueX = chunkList.get;
+                    trueY =;
+
+                    //This code is NOT Pretty, this will need to be revised
+
+
+                    //Check for all doors
+                    //Avoid OOB checks by not looking north for topmost chunks
+                    if (currentChunk.getNorth().equals(EdgeState.DOOR)) {
+                        //Check for doors that point towards null
+
+
+                    }
+
+                }
+            }
+        }
+
+         */

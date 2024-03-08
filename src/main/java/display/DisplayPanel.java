@@ -28,6 +28,7 @@ public class DisplayPanel extends JPanel {
     Color emptyColor = new Color(0,0,0);
     Color startColor = new Color(6, 114, 82);
     Color roomColor = new Color(157, 8, 231);
+    Color tempHallColor = new Color(0, 166, 255);
 
     //Edge Colors
     Color nullColor = new Color(0,0,0);
@@ -78,6 +79,10 @@ public class DisplayPanel extends JPanel {
                         break;
                     case ROOM:
                         g.setColor(roomColor);
+                        g.fillRect(x*scale,y*scale,scale,scale);
+                        break;
+                    case TEMPHALL:
+                        g.setColor(tempHallColor);
                         g.fillRect(x*scale,y*scale,scale,scale);
                         break;
                     case EMPTY:

@@ -65,7 +65,8 @@ public class GridGenerators {
                         if(selectedChunk.getChunkType().equals(Enums.ChunkType.EMPTY) || gridChunk.getChunkType().equals(Enums.ChunkType.EMPTY)){
                             //System.out.println("one is empty");
                         }else{
-                            //System.out.println("For room \"" + room.getName() + "\" Doesn't fit at x=" + x + " y=" + y);
+                            //
+                            // System.out.println("For room \"" + room.getName() + "\" Doesn't fit at x=" + x + " y=" + y);
                             noFit = true;
                             break;
                         }

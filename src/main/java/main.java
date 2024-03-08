@@ -18,6 +18,7 @@ public class main {
         EdgeGenerators.disableEdges(grid,ChunkType.ROOM);
         EdgeGenerators.connectAllAdjacentRooms(grid);
         EdgeGenerators.giveEachRoomDoors(grid,1);
+        EdgeGenerators.placeStartTempHall(grid);
         baseDisplay(grid);
 
         /*
