@@ -1,10 +1,11 @@
 package main.java.generators;
 
 import main.java.Grid;
+import main.java.generators.util.StoredEdge;
 import main.java.rooms.base.Chunk;
 import main.java.Enums.*;
 import main.java.rooms.base.Room;
-import main.java.util.Cord;
+import main.java.generators.util.StoredEdge;
 
 import java.util.ArrayList;
 
@@ -128,7 +129,7 @@ public class EdgeGenerators {
             }
             StoredEdge storedEdge = storedEdges.get(grid.random.nextInt(storedEdges.size()));
 
-            storedEdge.chunk.setDirection(storedEdge.direction,EdgeState.DOOR);
+            storedEdge.getChunk().setEdgeState(storedEdge.getDirection(),EdgeState.DOOR);
 
         }
 

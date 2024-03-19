@@ -46,18 +46,6 @@ public class DisplayPanel extends JPanel {
 
         this.width = grid.getWidth()*scale;
         this.length = grid.getLength()*scale;
-
-        /*
-        emptyTile = new BufferedImage(scale,scale,BufferedImage.TYPE_BYTE_BINARY);
-        emptyTile.setRGB(0,0,0xFFFFFF,);
-
-        startTile = new BufferedImage(scale,scale,BufferedImage.TYPE_BYTE_BINARY);
-        startTile.setRGB(0,0,0x00FF00);
-
-        roomTile = new BufferedImage(scale,scale,BufferedImage.TYPE_BYTE_BINARY);
-        roomTile.setRGB(0,0,0xFF0000);
-
-         */
     }
 
 
@@ -109,9 +97,6 @@ public class DisplayPanel extends JPanel {
                 //East
                 g.setColor(setEdgeColor(g,chunk.getEast()));
                 g.fillRect((x*scale)+(scale-lineScale),y*scale+lineScale,lineScale,scale-(lineScale*2));
-
-
-
             }
         }
     }

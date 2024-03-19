@@ -1,11 +1,11 @@
-package main.java.generators;
+package main.java.generators.util;
 
 import main.java.Enums.*;
 import main.java.rooms.base.Chunk;
 
 public class StoredEdge {
-    Chunk chunk;
-    Direction direction;
+    private Chunk chunk;
+    private Direction direction;
 
     public StoredEdge(Chunk chunk, Direction direction){
         this.chunk = chunk;

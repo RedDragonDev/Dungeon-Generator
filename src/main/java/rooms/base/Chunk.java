@@ -24,7 +24,23 @@ public class Chunk{
         this.chunkType = chunkType;
     }
 
-    public void setDirection(Direction direction, EdgeState edgeState){
+
+    public EdgeState getEdge(Direction direction){
+        switch(direction){
+            case NORTH:
+                return north;
+            case SOUTH:
+                return south;
+            case EAST:
+                return east;
+            case WEST:
+                return west;
+            default:
+                return null;
+        }
+    }
+
+    public void setEdgeState(Direction direction, EdgeState edgeState){
         switch(direction){
             case NORTH:
                 this.north = edgeState;
@@ -41,6 +57,8 @@ public class Chunk{
 
         }
     }
+
+
 
 
 

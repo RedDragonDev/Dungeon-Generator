@@ -3,6 +3,8 @@ package main.java;
 import main.java.display.DisplayPanel;
 import main.java.generators.GridGenerators;
 import main.java.generators.EdgeGenerators;
+import main.java.generators.TreeMazeGenerator;
+import main.java.generators.util.DirectionBias;
 import main.java.rooms.*;
 import main.java.rooms.base.Room;
 import main.java.Enums.*;
@@ -14,18 +16,23 @@ public class main {
 
 
     public static void main(String[] args) {
+        treeTest();
+    }
+
+    public static void treeTest(){
+        Grid grid = new Grid(15,15);
+        grid.placeStart(7,14, Direction.SOUTH);
+        TreeMazeGenerator.hallwayFromStart(grid, Direction.NORTH,3,5,new DirectionBias(1,1,1,1));
+        baseDisplay(grid);
+    }
+
+    public static void placeConnectTest(){
         Grid grid = baseTest();
         EdgeGenerators.disableEdges(grid,ChunkType.ROOM);
         EdgeGenerators.connectAllAdjacentRooms(grid);
         EdgeGenerators.giveEachRoomDoors(grid,1);
         EdgeGenerators.placeStartTempHall(grid);
         baseDisplay(grid);
-
-        /*
-        Grid grid = baseTest();
-        PathingGenerators.disableEdges(grid, ChunkType.ROOM);
-
-         */
     }
 
     public static Grid baseTest(){
